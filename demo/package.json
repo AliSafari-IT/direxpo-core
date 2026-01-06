@@ -1,6 +1,6 @@
 {
   "name": "@asafarim/direxpo-demo",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "private": true,
   "type": "module",
   "scripts": {
@@ -8,7 +8,7 @@
     "demo": "pnpm dev",
     "prebuild": "cd .. && pnpm build",
     "build": "tsx src/build.ts",
-    "serve": "pnpm dlx serve dist"
+    "serve": "pnpm build && pnpm dlx serve dist"
   },
   "dependencies": {
     "@asafarim/direxpo-core": "../"

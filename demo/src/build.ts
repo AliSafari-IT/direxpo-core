@@ -27,9 +27,20 @@ async function buildDemoSite(): Promise<void> {
   }
 }
 
+function escapeHtml(text: string): string {
+  const map: Record<string, string> = {
+    "&": "&amp;",
+    "<": "&lt;",
+    ">": "&gt;",
+    '"': "&quot;",
+    "'": "&#039;",
+  };
+  return text.replace(/[&<>"']/g, (char) => map[char]);
+}
+
 function renderSection(section: DemoSection): string {
   const lines = section.lines
-    .map((line) => `<li><code>${line}</code></li>`)
+    .map((line) => `<li><code>${escapeHtml(line)}</code></li>`)
     .join("");
 
   return `
@@ -38,7 +49,14 @@ function renderSection(section: DemoSection): string {
         <h2>${section.title}</h2>
         <p>${section.summary}</p>
       </header>
-      <ul>${lines}</ul>
+      <div class="code-block">
+        <strong>Code:</strong>
+        <pre><code>${escapeHtml(section.code)}</code></pre>
+      </div>
+      <div class="output-block">
+        <strong>Output:</strong>
+        <ul>${lines}</ul>
+      </div>
     </section>
   `;
 }
@@ -112,6 +130,38 @@ function renderHtml(output: DemoOutput, basePath: string = "/"): string {
       .demo-section p {
         margin: var(--asm-space-2) 0 0;
         color: var(--asm-color-text-muted);
+      }
+      .code-block {
+        background: var(--asm-color-surface-muted);
+        border-left: 4px solid var(--asm-color-primary-500);
+        padding: var(--asm-space-4);
+        margin-bottom: var(--asm-space-4);
+        border-radius: var(--asm-radius-md);
+      }
+      .code-block strong {
+        display: block;
+        margin-bottom: var(--asm-space-2);
+        color: var(--asm-color-text);
+        font-size: 0.95rem;
+      }
+      .code-block pre {
+        margin: 0;
+        overflow-x: auto;
+      }
+      .code-block code {
+        font-family: var(--asm-font-family-mono);
+        font-size: 0.85rem;
+        color: var(--asm-color-text);
+        line-height: 1.5;
+      }
+      .output-block {
+        margin-top: var(--asm-space-4);
+      }
+      .output-block strong {
+        display: block;
+        margin-bottom: var(--asm-space-2);
+        color: var(--asm-color-text);
+        font-size: 0.95rem;
       }
       .demo-section ul {
         list-style: none;

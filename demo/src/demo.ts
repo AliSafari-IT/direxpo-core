@@ -9,6 +9,7 @@ import { fileURLToPath } from "url";
 export interface DemoSection {
   title: string;
   summary: string;
+  code: string;
   lines: string[];
 }
 
@@ -22,12 +23,18 @@ function getFixtureDir(): string {
   return resolve(currentDir, "../fixtures/sample-project");
 }
 
-function formatList(title: string, items: string[]): DemoSection {
+function formatList(title: string, items: string[], code: string): DemoSection {
   return {
     title,
     summary: `Found ${items.length} items`,
+    code,
     lines: [
       `Found ${items.length} item${items.length === 1 ? "" : "s"}:`,
+      "",
+      "Raw output from discoverFiles():",
+      JSON.stringify(items, null, 2),
+      "",
+      "Formatted list:",
       ...items.map((item) => `• ${item}`),
     ],
   };
@@ -39,7 +46,13 @@ export async function collectDemoOutput(): Promise<DemoOutput> {
 
   const allFiles = await discoverFiles({ targetPath: fixtureDir });
   sections.push(
-    formatList("📁 Use Case 1: Discover All Files", allFiles),
+    formatList(
+      "📁 Use Case 1: Discover All Files",
+      allFiles,
+      `const allFiles = await discoverFiles({
+  targetPath: fixtureDir,
+});`,
+    ),
   );
 
   const tsxFiles = await discoverFiles({
@@ -47,7 +60,14 @@ export async function collectDemoOutput(): Promise<DemoOutput> {
     filter: "tsx",
   });
   sections.push(
-    formatList("📝 Use Case 2: Discover TypeScript/TSX Files", tsxFiles),
+    formatList(
+      "📝 Use Case 2: Discover TypeScript/TSX Files",
+      tsxFiles,
+      `const tsxFiles = await discoverFiles({
+  targetPath: fixtureDir,
+  filter: "tsx",
+});`,
+    ),
   );
 
   const cssFiles = await discoverFiles({
@@ -55,7 +75,14 @@ export async function collectDemoOutput(): Promise<DemoOutput> {
     filter: "css",
   });
   sections.push(
-    formatList("🎨 Use Case 3: Discover CSS Files", cssFiles),
+    formatList(
+      "🎨 Use Case 3: Discover CSS Files",
+      cssFiles,
+      `const cssFiles = await discoverFiles({
+  targetPath: fixtureDir,
+  filter: "css",
+});`,
+    ),
   );
 
   const mdFiles = await discoverFiles({
@@ -63,7 +90,14 @@ export async function collectDemoOutput(): Promise<DemoOutput> {
     filter: "md",
   });
   sections.push(
-    formatList("📚 Use Case 4: Discover Markdown Files", mdFiles),
+    formatList(
+      "📚 Use Case 4: Discover Markdown Files",
+      mdFiles,
+      `const mdFiles = await discoverFiles({
+  targetPath: fixtureDir,
+  filter: "md",
+});`,
+    ),
   );
 
   const jsonFiles = await discoverFiles({
@@ -71,7 +105,14 @@ export async function collectDemoOutput(): Promise<DemoOutput> {
     filter: "json",
   });
   sections.push(
-    formatList("⚙️ Use Case 5: Discover JSON Files", jsonFiles),
+    formatList(
+      "⚙️ Use Case 5: Discover JSON Files",
+      jsonFiles,
+      `const jsonFiles = await discoverFiles({
+  targetPath: fixtureDir,
+  filter: "json",
+});`,
+    ),
   );
 
   const filesWithExclude = await discoverFiles({
@@ -79,13 +120,24 @@ export async function collectDemoOutput(): Promise<DemoOutput> {
     exclude: ["node_modules", "dist"],
   });
   sections.push(
-    formatList("🚫 Use Case 6: Discover with Exclusions", filesWithExclude),
+    formatList(
+      "🚫 Use Case 6: Discover with Exclusions",
+      filesWithExclude,
+      `const filesWithExclude = await discoverFiles({
+  targetPath: fixtureDir,
+  exclude: ["node_modules", "dist"],
+});`,
+    ),
   );
 
   const treeMarkdown = generateTreeSection(allFiles, fixtureDir);
   sections.push({
     title: "🌳 Use Case 7: Generate Folder Tree",
     summary: "Markdown tree output",
+    code: `const treeMarkdown = generateTreeSection(
+  allFiles,
+  fixtureDir,
+);`,
     lines: treeMarkdown.split("\n"),
   });
 
@@ -93,6 +145,10 @@ export async function collectDemoOutput(): Promise<DemoOutput> {
   sections.push({
     title: "🔍 Use Case 8: Build Tree Structure",
     summary: "Tree structure as JSON",
+    code: `const treeNode = buildFolderTree(
+  allFiles,
+  fixtureDir,
+);`,
     lines: JSON.stringify(treeNode, null, 2).split("\n"),
   });
 
