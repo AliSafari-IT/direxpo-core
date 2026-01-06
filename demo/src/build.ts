@@ -9,15 +9,10 @@ async function buildDemoSite(): Promise<void> {
   await mkdir(distDir, { recursive: true });
 
   const output = await collectDemoOutput();
-  const html = renderHtml(output);
+  const basePath = process.env.BASE_PATH || "/direxpo-core/";
+  const html = renderHtml(output, basePath);
 
   await writeFile(resolve(distDir, "index.html"), html, "utf-8");
-  // keep minimal bundle indicator for GH pages
-  await writeFile(
-    resolve(distDir, "CNAME"),
-    "direxpo-core-demo.asafarim.dev",
-    "utf-8",
-  ).catch(() => Promise.resolve());
 }
 
 function renderSection(section: DemoSection): string {
@@ -36,7 +31,7 @@ function renderSection(section: DemoSection): string {
   `;
 }
 
-function renderHtml(output: DemoOutput): string {
+function renderHtml(output: DemoOutput, basePath: string = "/"): string {
   const sectionsHtml = output.sections.map(renderSection).join("\n");
 
   return `<!DOCTYPE html>
@@ -44,6 +39,7 @@ function renderHtml(output: DemoOutput): string {
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <base href="${basePath}" />
     <title>Direxpo-Core Demo</title>
     <link
       rel="stylesheet"

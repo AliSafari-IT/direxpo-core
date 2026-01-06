@@ -67,6 +67,8 @@ jobs:
       - run: pnpm run build
       - run: cd demo && pnpm install --frozen-lockfile
       - run: cd demo && pnpm run build
+        env:
+          BASE_PATH: /direxpo-core/
       - name: Publish to gh-pages branch
         uses: peaceiris/actions-gh-pages@v3
         with:
