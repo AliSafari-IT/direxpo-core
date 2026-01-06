@@ -77,4 +77,3 @@ jobs:
           publish_branch: gh-pages
           publish_dir: demo/dist
           force_orphan: true
-          cname: direxpo-core.asafarim.dev
