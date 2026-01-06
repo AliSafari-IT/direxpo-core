@@ -6,7 +6,9 @@
   "scripts": {
     "dev": "tsx src/index.ts",
     "demo": "pnpm dev",
-    "build": "tsx src/build.ts"
+    "prebuild": "cd .. && pnpm build",
+    "build": "tsx src/build.ts",
+    "serve": "pnpm dlx serve dist"
   },
   "dependencies": {
     "@asafarim/direxpo-core": "../"

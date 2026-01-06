@@ -1,18 +1,30 @@
-import { mkdir, rm, writeFile } from "fs/promises";
+import { mkdir, rm, writeFile, copyFile } from "fs/promises";
 import { resolve } from "path";
+import { existsSync } from "fs";
 import type { DemoOutput, DemoSection } from "./demo.js";
 import { collectDemoOutput } from "./demo.js";
 
 async function buildDemoSite(): Promise<void> {
   const distDir = resolve(process.cwd(), "dist");
+  const publicDir = resolve(process.cwd(), "public");
+  
   await rm(distDir, { recursive: true, force: true });
   await mkdir(distDir, { recursive: true });
 
   const output = await collectDemoOutput();
-  const basePath = process.env.BASE_PATH || "/direxpo-core/";
+  // Use "/" for local development, "/direxpo-core/" for GitHub Pages
+  const basePath = process.env.BASE_PATH || process.env.NODE_ENV === "production" ? "/direxpo-core/" : "/";
   const html = renderHtml(output, basePath);
 
   await writeFile(resolve(distDir, "index.html"), html, "utf-8");
+  
+  // Copy public assets if they exist
+  if (existsSync(publicDir)) {
+    const faviconPath = resolve(publicDir, "favicon.svg");
+    if (existsSync(faviconPath)) {
+      await copyFile(faviconPath, resolve(distDir, "favicon.svg"));
+    }
+  }
 }
 
 function renderSection(section: DemoSection): string {
@@ -41,6 +53,7 @@ function renderHtml(output: DemoOutput, basePath: string = "/"): string {
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <base href="${basePath}" />
     <title>Direxpo-Core Demo</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg" />
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/@asafarim/design-tokens/css/index.css"
