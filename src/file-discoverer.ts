@@ -1,3 +1,4 @@
+import type { Dirent } from "fs";
 import { stat, readdir } from "fs/promises";
 import { resolve, join, relative, extname } from "path";
 import type { DiscoverOptions } from "./types.js";
@@ -16,7 +17,7 @@ export async function discoverFiles(options: DiscoverOptions): Promise<string[]>
     const files: string[] = [];
 
     async function walkDir(dir: string): Promise<void> {
-      let entries: Awaited<ReturnType<typeof readdir>>;
+      let entries: Dirent[];
       try {
         entries = await readdir(dir, { withFileTypes: true });
       } catch {
