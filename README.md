@@ -9,6 +9,12 @@ Pure utilities for file discovery and folder tree generation. No runtime depende
 - **Smart Exclusions**: Automatic exclusion of common directories (node_modules, .git, etc.)
 - **Type-Safe**: Full TypeScript support
 
+## 🎯 Live Demo
+
+See the package in action: **[direxpo-core Demo](https://alisafari-it.github.io/direxpo-core/)**
+
+The demo showcases 8 different use cases with code examples and live output.
+
 ## Installation
 
 ```bash
@@ -46,6 +52,7 @@ console.log(treeMarkdown);
 Discovers files matching the specified criteria.
 
 **Options:**
+
 - `targetPath: string` - Directory to scan
 - `filter?: FilterType` - File type filter ('all' | 'tsx' | 'css' | 'md' | 'json' | 'glob')
 - `pattern?: string` - Glob pattern (when filter is 'glob')

@@ -30,11 +30,6 @@ function formatList(title: string, items: string[], code: string): DemoSection {
     code,
     lines: [
       `Found ${items.length} item${items.length === 1 ? "" : "s"}:`,
-      "",
-      "Raw output from discoverFiles():",
-      JSON.stringify(items, null, 2),
-      "",
-      "Formatted list:",
       ...items.map((item) => `• ${item}`),
     ],
   };
