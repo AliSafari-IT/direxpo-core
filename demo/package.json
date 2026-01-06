@@ -1,0 +1,16 @@
+{
+  "name": "@asafarim/direxpo-demo",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "tsx src/index.ts",
+    "demo": "pnpm dev"
+  },
+  "dependencies": {
+    "@asafarim/direxpo-core": "workspace:*"
+  },
+  "devDependencies": {
+    "tsx": "^4.7.1",
+    "typescript": "^5.3.3"
+  }
+}
