@@ -1,13 +1,15 @@
 {
   "name": "@asafarim/direxpo-demo",
+  "version": "0.2.0",
   "private": true,
   "type": "module",
   "scripts": {
     "dev": "tsx src/index.ts",
-    "demo": "pnpm dev"
+    "demo": "pnpm dev",
+    "build": "tsx src/build.ts"
   },
   "dependencies": {
-    "@asafarim/direxpo-core": "workspace:*"
+    "@asafarim/direxpo-core": "../"
   },
   "devDependencies": {
     "tsx": "^4.7.1",

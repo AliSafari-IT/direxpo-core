@@ -1,6 +1,6 @@
 {
   "name": "@asafarim/direxpo-core",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "type": "module",
   "exports": {
     ".": {
@@ -8,24 +8,49 @@
       "default": "./dist/index.js"
     }
   },
-  "files": ["dist", "README.md", "LICENSE", "src"],
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE",
+    "src"
+  ],
   "scripts": {
     "build": "tsc -p tsconfig.json",
-    "dev": "tsc -p tsconfig.json --watch"
+    "dev": "tsc -p tsconfig.json --watch",
+    "type-check": "tsc --noEmit",
+    "demo": "tsx demo/src/index.ts",
+    "build:demo": "tsx demo/src/build.ts",
+    "predeploy": "pnpm run build && pnpm run build:demo",
+    "deploy:demo": "gh-pages -d demo/dist",
+    "deploy": "pnpm run deploy:demo",
+    "release": "node scripts/release.js"
+  },
+  "peerDependencies": {
+    "react": ">=18.0.0",
+    "react-dom": ">=18.0.0"
+  },
+  "dependencies": {
+    "tsx": "^4.21.0"
   },
   "devDependencies": {
-    "typescript": "^5.3.3",
-    "@types/node": "^20.10.6"
+    "@types/node": "^20.10.6",
+    "gh-pages": "^6.1.1",
+    "typescript": "^5.3.3"
   },
   "publishConfig": {
     "access": "public"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/AliSafari-IT/direxpo-core.git",
-    "directory": "packages/direxpo-core"
+    "url": "https://github.com/AliSafari-IT/direxpo-core.git"
   },
-  "keywords": ["direxpo", "file-discovery", "folder-tree", "utilities"],
+  "homepage": "https://alisafari-it.github.io/direxpo-core/",
+  "keywords": [
+    "direxpo",
+    "file-discovery",
+    "folder-tree",
+    "utilities"
+  ],
   "author": "Ali Safari <asafarim@gmail.com>",
   "license": "MIT"
 }
