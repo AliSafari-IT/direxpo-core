@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <base href="/direxpo-core/" />
+    <title>Direxpo-Core Demo</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@asafarim/design-tokens/css/index.css"
+    />
+    <style>
+      :root {
+        font-family: var(--asm-font-family-space-grotesk, var(--asm-font-family-primary));
+        line-height: 1.6;
+        color: var(--asm-color-text);
+        background-color: var(--asm-color-bg);
+      }
+      body {
+        margin: 0;
+        padding: 0;
+        min-height: 100vh;
+        background: linear-gradient(
+          120deg,
+          var(--asm-color-primary-50),
+          var(--asm-color-secondary-50)
+        );
+      }
+      .page {
+        max-width: 960px;
+        margin: 0 auto;
+        padding: var(--asm-space-16) var(--asm-space-6) var(--asm-space-20);
+      }
+      header.page-header {
+        text-align: center;
+        margin-bottom: var(--asm-space-12);
+      }
+      header.page-header h1 {
+        font-size: clamp(2rem, 5vw, 3rem);
+        margin: 0 0 var(--asm-space-3);
+        font-weight: var(--asm-font-weight-600);
+      }
+      header.page-header p {
+        margin: 0;
+        color: var(--asm-color-text-muted);
+      }
+      .demo-section {
+        background: var(--asm-color-surface);
+        border-radius: var(--asm-radius-xl);
+        padding: var(--asm-space-8);
+        margin-bottom: var(--asm-space-6);
+        box-shadow: var(--asm-effect-shadow-xl);
+        border: 1px solid var(--asm-color-border);
+      }
+      .demo-section header {
+        margin-bottom: var(--asm-space-4);
+      }
+      .demo-section h2 {
+        margin: 0;
+        font-size: 1.3rem;
+        color: var(--asm-color-text);
+      }
+      .demo-section p {
+        margin: var(--asm-space-2) 0 0;
+        color: var(--asm-color-text-muted);
+      }
+      .code-block {
+        background: var(--asm-color-surface-muted);
+        border-left: 4px solid var(--asm-color-primary-500);
+        padding: var(--asm-space-4);
+        margin-bottom: var(--asm-space-4);
+        border-radius: var(--asm-radius-md);
+      }
+      .code-block strong {
+        display: block;
+        margin-bottom: var(--asm-space-2);
+        color: var(--asm-color-text);
+        font-size: 0.95rem;
+      }
+      .code-block pre {
+        margin: 0;
+        overflow-x: auto;
+      }
+      .code-block code {
+        font-family: var(--asm-font-family-mono);
+        font-size: 0.85rem;
+        color: var(--asm-color-text);
+        line-height: 1.5;
+      }
+      .output-block {
+        margin-top: var(--asm-space-4);
+      }
+      .output-block strong {
+        display: block;
+        margin-bottom: var(--asm-space-2);
+        color: var(--asm-color-text);
+        font-size: 0.95rem;
+      }
+      .demo-section ul {
+        list-style: none;
+        padding-left: 0;
+        margin: 0;
+        max-height: 320px;
+        overflow: auto;
+      }
+      .demo-section li {
+        padding: var(--asm-space-2) 0;
+        border-bottom: 1px solid var(--asm-color-border);
+      }
+      .demo-section code {
+        font-family: var(--asm-font-family-mono);
+        font-size: 0.9rem;
+        color: var(--asm-color-text);
+      }
+      footer {
+        margin-top: var(--asm-space-10);
+        text-align: center;
+        color: var(--asm-color-text-muted);
+        font-size: 0.95rem;
+      }
+    </style>
+  </head>
+  <body>
+    <main class="page">
+      <header class="page-header">
+        <p>Fixture: /home/runner/work/direxpo-core/direxpo-core/demo/fixtures/sample-project</p>
+      </header>
+      
+    <section class="demo-section">
+      <header>
+        <h2>📁 Use Case 1: Discover All Files</h2>
+        <p>Found 10 items</p>
+      </header>
+      <div class="code-block">
+        <strong>Code:</strong>
+        <pre><code>const allFiles = await discoverFiles({
+  targetPath: fixtureDir,
+});</code></pre>
+      </div>
+      <div class="output-block">
+        <strong>Output:</strong>
+        <ul><li><code>Found 10 items:</code></li><li><code>• README.md</code></li><li><code>• docs/ARCHITECTURE.md</code></li><li><code>• package.json</code></li><li><code>• src/components/Button.tsx</code></li><li><code>• src/components/Card.tsx</code></li><li><code>• src/components/Header.tsx</code></li><li><code>• src/components/render-app.ts</code></li><li><code>• src/index.ts</code></li><li><code>• src/styles/global.css</code></li><li><code>• src/utils/helpers.ts</code></li></ul>
+      </div>
+    </section>
+  
+
+    <section class="demo-section">
+      <header>
+        <h2>📝 Use Case 2: Discover TypeScript/TSX Files</h2>
+        <p>Found 6 items</p>
+      </header>
+      <div class="code-block">
+        <strong>Code:</strong>
+        <pre><code>const tsxFiles = await discoverFiles({
+  targetPath: fixtureDir,
+  filter: &quot;tsx&quot;,
+});</code></pre>
+      </div>
+      <div class="output-block">
+        <strong>Output:</strong>
+        <ul><li><code>Found 6 items:</code></li><li><code>• src/components/Button.tsx</code></li><li><code>• src/components/Card.tsx</code></li><li><code>• src/components/Header.tsx</code></li><li><code>• src/components/render-app.ts</code></li><li><code>• src/index.ts</code></li><li><code>• src/utils/helpers.ts</code></li></ul>
+      </div>
+    </section>
+  
+
+    <section class="demo-section">
+      <header>
+        <h2>🎨 Use Case 3: Discover CSS Files</h2>
+        <p>Found 1 items</p>
+      </header>
+      <div class="code-block">
+        <strong>Code:</strong>
+        <pre><code>const cssFiles = await discoverFiles({
+  targetPath: fixtureDir,
+  filter: &quot;css&quot;,
+});</code></pre>
+      </div>
+      <div class="output-block">
+        <strong>Output:</strong>
+        <ul><li><code>Found 1 item:</code></li><li><code>• src/styles/global.css</code></li></ul>
+      </div>
+    </section>
+  
+
+    <section class="demo-section">
+      <header>
+        <h2>📚 Use Case 4: Discover Markdown Files</h2>
+        <p>Found 2 items</p>
+      </header>
+      <div class="code-block">
+        <strong>Code:</strong>
+        <pre><code>const mdFiles = await discoverFiles({
+  targetPath: fixtureDir,
+  filter: &quot;md&quot;,
+});</code></pre>
+      </div>
+      <div class="output-block">
+        <strong>Output:</strong>
+        <ul><li><code>Found 2 items:</code></li><li><code>• README.md</code></li><li><code>• docs/ARCHITECTURE.md</code></li></ul>
+      </div>
+    </section>
+  
+
+    <section class="demo-section">
+      <header>
+        <h2>⚙️ Use Case 5: Discover JSON Files</h2>
+        <p>Found 1 items</p>
+      </header>
+      <div class="code-block">
+        <strong>Code:</strong>
+        <pre><code>const jsonFiles = await discoverFiles({
+  targetPath: fixtureDir,
+  filter: &quot;json&quot;,
+});</code></pre>
+      </div>
+      <div class="output-block">
+        <strong>Output:</strong>
+        <ul><li><code>Found 1 item:</code></li><li><code>• package.json</code></li></ul>
+      </div>
+    </section>
+  
+
+    <section class="demo-section">
+      <header>
+        <h2>🚫 Use Case 6: Discover with Exclusions</h2>
+        <p>Found 10 items</p>
+      </header>
+      <div class="code-block">
+        <strong>Code:</strong>
+        <pre><code>const filesWithExclude = await discoverFiles({
+  targetPath: fixtureDir,
+  exclude: [&quot;node_modules&quot;, &quot;dist&quot;],
+});</code></pre>
+      </div>
+      <div class="output-block">
+        <strong>Output:</strong>
+        <ul><li><code>Found 10 items:</code></li><li><code>• README.md</code></li><li><code>• docs/ARCHITECTURE.md</code></li><li><code>• package.json</code></li><li><code>• src/components/Button.tsx</code></li><li><code>• src/components/Card.tsx</code></li><li><code>• src/components/Header.tsx</code></li><li><code>• src/components/render-app.ts</code></li><li><code>• src/index.ts</code></li><li><code>• src/styles/global.css</code></li><li><code>• src/utils/helpers.ts</code></li></ul>
+      </div>
+    </section>
+  
+
+    <section class="demo-section">
+      <header>
+        <h2>🌳 Use Case 7: Generate Folder Tree</h2>
+        <p>Markdown tree output</p>
+      </header>
+      <div class="code-block">
+        <strong>Code:</strong>
+        <pre><code>const treeMarkdown = generateTreeSection(
+  allFiles,
+  fixtureDir,
+);</code></pre>
+      </div>
+      <div class="output-block">
+        <strong>Output:</strong>
+        <ul><li><code>## Project Structure</code></li><li><code></code></li><li><code>```</code></li><li><code>sample-project/</code></li><li><code>├─ docs/</code></li><li><code>│  └─ ARCHITECTURE.md</code></li><li><code>├─ src/</code></li><li><code>│  ├─ components/</code></li><li><code>│  │  ├─ Button.tsx</code></li><li><code>│  │  ├─ Card.tsx</code></li><li><code>│  │  ├─ Header.tsx</code></li><li><code>│  │  └─ render-app.ts</code></li><li><code>│  ├─ styles/</code></li><li><code>│  │  └─ global.css</code></li><li><code>│  ├─ utils/</code></li><li><code>│  │  └─ helpers.ts</code></li><li><code>│  └─ index.ts</code></li><li><code>├─ package.json</code></li><li><code>└─ README.md</code></li><li><code>```</code></li><li><code></code></li></ul>
+      </div>
+    </section>
+  
+
+    <section class="demo-section">
+      <header>
+        <h2>🔍 Use Case 8: Build Tree Structure</h2>
+        <p>Tree structure as JSON</p>
+      </header>
+      <div class="code-block">
+        <strong>Code:</strong>
+        <pre><code>const treeNode = buildFolderTree(
+  allFiles,
+  fixtureDir,
+);</code></pre>
+      </div>
+      <div class="output-block">
+        <strong>Output:</strong>
+        <ul><li><code>{</code></li><li><code>  &quot;name&quot;: &quot;sample-project&quot;,</code></li><li><code>  &quot;path&quot;: &quot;/home/runner/work/direxpo-core/direxpo-core/demo/fixtures/sample-project&quot;,</code></li><li><code>  &quot;isDir&quot;: true,</code></li><li><code>  &quot;children&quot;: [</code></li><li><code>    {</code></li><li><code>      &quot;name&quot;: &quot;docs&quot;,</code></li><li><code>      &quot;path&quot;: &quot;docs&quot;,</code></li><li><code>      &quot;isDir&quot;: true,</code></li><li><code>      &quot;children&quot;: [</code></li><li><code>        {</code></li><li><code>          &quot;name&quot;: &quot;ARCHITECTURE.md&quot;,</code></li><li><code>          &quot;path&quot;: &quot;docs/ARCHITECTURE.md&quot;,</code></li><li><code>          &quot;isDir&quot;: false,</code></li><li><code>          &quot;children&quot;: []</code></li><li><code>        }</code></li><li><code>      ]</code></li><li><code>    },</code></li><li><code>    {</code></li><li><code>      &quot;name&quot;: &quot;src&quot;,</code></li><li><code>      &quot;path&quot;: &quot;src&quot;,</code></li><li><code>      &quot;isDir&quot;: true,</code></li><li><code>      &quot;children&quot;: [</code></li><li><code>        {</code></li><li><code>          &quot;name&quot;: &quot;components&quot;,</code></li><li><code>          &quot;path&quot;: &quot;src/components&quot;,</code></li><li><code>          &quot;isDir&quot;: true,</code></li><li><code>          &quot;children&quot;: [</code></li><li><code>            {</code></li><li><code>              &quot;name&quot;: &quot;Button.tsx&quot;,</code></li><li><code>              &quot;path&quot;: &quot;src/components/Button.tsx&quot;,</code></li><li><code>              &quot;isDir&quot;: false,</code></li><li><code>              &quot;children&quot;: []</code></li><li><code>            },</code></li><li><code>            {</code></li><li><code>              &quot;name&quot;: &quot;Card.tsx&quot;,</code></li><li><code>              &quot;path&quot;: &quot;src/components/Card.tsx&quot;,</code></li><li><code>              &quot;isDir&quot;: false,</code></li><li><code>              &quot;children&quot;: []</code></li><li><code>            },</code></li><li><code>            {</code></li><li><code>              &quot;name&quot;: &quot;Header.tsx&quot;,</code></li><li><code>              &quot;path&quot;: &quot;src/components/Header.tsx&quot;,</code></li><li><code>              &quot;isDir&quot;: false,</code></li><li><code>              &quot;children&quot;: []</code></li><li><code>            },</code></li><li><code>            {</code></li><li><code>              &quot;name&quot;: &quot;render-app.ts&quot;,</code></li><li><code>              &quot;path&quot;: &quot;src/components/render-app.ts&quot;,</code></li><li><code>              &quot;isDir&quot;: false,</code></li><li><code>              &quot;children&quot;: []</code></li><li><code>            }</code></li><li><code>          ]</code></li><li><code>        },</code></li><li><code>        {</code></li><li><code>          &quot;name&quot;: &quot;styles&quot;,</code></li><li><code>          &quot;path&quot;: &quot;src/styles&quot;,</code></li><li><code>          &quot;isDir&quot;: true,</code></li><li><code>          &quot;children&quot;: [</code></li><li><code>            {</code></li><li><code>              &quot;name&quot;: &quot;global.css&quot;,</code></li><li><code>              &quot;path&quot;: &quot;src/styles/global.css&quot;,</code></li><li><code>              &quot;isDir&quot;: false,</code></li><li><code>              &quot;children&quot;: []</code></li><li><code>            }</code></li><li><code>          ]</code></li><li><code>        },</code></li><li><code>        {</code></li><li><code>          &quot;name&quot;: &quot;utils&quot;,</code></li><li><code>          &quot;path&quot;: &quot;src/utils&quot;,</code></li><li><code>          &quot;isDir&quot;: true,</code></li><li><code>          &quot;children&quot;: [</code></li><li><code>            {</code></li><li><code>              &quot;name&quot;: &quot;helpers.ts&quot;,</code></li><li><code>              &quot;path&quot;: &quot;src/utils/helpers.ts&quot;,</code></li><li><code>              &quot;isDir&quot;: false,</code></li><li><code>              &quot;children&quot;: []</code></li><li><code>            }</code></li><li><code>          ]</code></li><li><code>        },</code></li><li><code>        {</code></li><li><code>          &quot;name&quot;: &quot;index.ts&quot;,</code></li><li><code>          &quot;path&quot;: &quot;src/index.ts&quot;,</code></li><li><code>          &quot;isDir&quot;: false,</code></li><li><code>          &quot;children&quot;: []</code></li><li><code>        }</code></li><li><code>      ]</code></li><li><code>    },</code></li><li><code>    {</code></li><li><code>      &quot;name&quot;: &quot;package.json&quot;,</code></li><li><code>      &quot;path&quot;: &quot;package.json&quot;,</code></li><li><code>      &quot;isDir&quot;: false,</code></li><li><code>      &quot;children&quot;: []</code></li><li><code>    },</code></li><li><code>    {</code></li><li><code>      &quot;name&quot;: &quot;README.md&quot;,</code></li><li><code>      &quot;path&quot;: &quot;README.md&quot;,</code></li><li><code>      &quot;isDir&quot;: false,</code></li><li><code>      &quot;children&quot;: []</code></li><li><code>    }</code></li><li><code>  ]</code></li><li><code>}</code></li></ul>
+      </div>
+    </section>
+  
+      <footer>
+        Generated 1/23/2026, 9:49:54 PM
+      </footer>
+    </main>
+  </body>
+</html>
