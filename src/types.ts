@@ -4,7 +4,7 @@ export interface DiscoverOptions {
   targetPath: string;
   filter?: FilterType;
   pattern?: string;
-  exclude?: string[];
+  exclude?: string[] | string;
   maxSize?: number;
 }
 
